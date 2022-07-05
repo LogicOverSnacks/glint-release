@@ -1,0 +1,18 @@
+name: release
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Post to Discord
+        uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.discord_webhook }}
+          DISCORD_EMBEDS: '{ "embeds": [{"title":"${{ EVENT_PAYLOAD.release.tag_name }}","url":"${{ EVENT_PAYLOAD.release.html_url }}"}] }'
+        with:
+          args: 'New version released!'
