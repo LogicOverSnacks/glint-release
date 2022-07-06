@@ -1,3 +1,3 @@
-# glint-release
+# Glint
 
-Public release for git glint
+Find out more at [glint.info](https://glint.info)
