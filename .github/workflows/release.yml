@@ -1,7 +1,6 @@
 name: release
 
 on:
-  workflow_dispatch:
   release:
     types: [released]
 
@@ -10,13 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test
-        run: echo '[{"title":"${{ github.event.release.tag_name }}","url":"${{ github.event.release.html_url }}"}]'
       - name: Post to Discord
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.discord_webhook }}
-          DISCORD_EMBEDS: '[{"title":"1.0.0-beta.0","url":"https://github.com/LogicOverSnacks/glint-release/releases/tag/v1.0.0-beta.0"}]'
-          OLD_DISCORD_EMBEDS: '[{"title":"${{ github.event.release.tag_name }}","url":"${{ github.event.release.html_url }}"}]'
+          DISCORD_EMBEDS: '[{"title":"${{ github.event.release.tag_name }} · Glint","url":"${{ github.event.release.html_url }}","description":"${{ github.event.release.body }}"}]'
         with:
           args: 'New version released!'
