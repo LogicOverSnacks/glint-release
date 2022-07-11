@@ -1,6 +1,7 @@
 name: release
 
 on:
+  workflow_dispatch:
   release:
     types: [released]
 
@@ -13,6 +14,6 @@ jobs:
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.discord_webhook }}
-          DISCORD_EMBEDS: '{ "embeds": [{"title":"${{ EVENT_PAYLOAD.release.tag_name }}","url":"${{ EVENT_PAYLOAD.release.html_url }}"}] }'
+          DISCORD_EMBEDS: '{ "embeds": [{"title":"${{ github.event.release.tag_name }}","url":"${{ github.event.release.html_url }}"}] }'
         with:
           args: 'New version released!'
